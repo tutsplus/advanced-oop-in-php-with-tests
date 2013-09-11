@@ -1,0 +1,44 @@
+Requirements
+
+1. As a user I want to be able to search for a book by title or author.
+2. As an administrator I want to be able to introduce books in the library.
+3. As a user I want to be able to see the cover, first & last pages and two other preview pages of a book.
+4. As an administrator I want be able to be authenticated and sure only I can do changes to the library.
+5. As an administrator I want to be able to upload pictures of the books, cover, first & last pages and some preview.
+6. As a user I want to be able to read the technical details about the book, like editor, publishing date, etc.
+7. As an administrator I want to be able to publish details about the book or the whole book if copyright permits.
+8. As a user I want to be able to browse the list of books the library has, maybe filter the list by some categories like genre, form factor, maybe age groups.
+9. As an administrator I want to be able to specify extra information about the books that helps me locate them, like location, genre, form factor, and so on.
+
+
+The Technical Reasoning
+
+A. Take points 1 & 2 and create a proof of concept / prototype application
+	~ starting with point 2 will help us define our basic structure for a book and a library
+	~ point 1 will force us to produce a data acquisition / retrieval logic
+	~ point 1 will force us to produce a presentations logic
+	~ point 1 will force us to produce a search module
+
+B. Take points 3 & 5 and add the functionality to our application
+	~ point 3 will force us to define the structure and UI of what we want to see in term of images & pictures of a book
+	~ point 5 will force us to write the code that can sustain the introduction of the information needed by point 3
+
+C. Take point 4 and implement it
+	~ it will face us with the dilemma of user management
+	~ for this application we will only need an administrator user
+	~ everyone else will be an ordinary user, no login required
+
+D. Points 6 and 7
+	~ they go together and only represent extra information we want to add to our books
+	~ they will force us to redesign part of our UI to accommodate the new information
+	~ they will force us to change how we persist our information to be able to save and retrieve the extra information
+
+E. Points 8 and 9
+	~ similar to D
+
+
+The Release Plan
+
+Version 1 - points A & C
+Version 2 - point B
+Version 3 - points D & E

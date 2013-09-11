@@ -1,0 +1,16 @@
+{
+	"name": "vendor/tuts-library",
+	"description": "Description of project TutsLibrary.",
+	"authors": [
+		{
+			"name": "csaba",
+			"email": "your@email.here"
+		}
+	],
+	"require": {
+},
+	"require-dev": {
+		"phpunit/phpunit": "3.7.*"
+	}
+}
+

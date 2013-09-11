@@ -16,6 +16,14 @@ class NovelTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($author, $novel->getAuthor());
 	}
 
+	function testBehavior() {
+		$novel = new Novel();
+
+		$novel->getWeight();
+
+
+
+	}
 
 }
 

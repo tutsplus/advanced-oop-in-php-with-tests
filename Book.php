@@ -26,6 +26,10 @@ class Book {
 		$this->title = $title;
 	}
 
+	protected function pageNumber() {
+		return 100;
+	}
+
 }
 
 ?>

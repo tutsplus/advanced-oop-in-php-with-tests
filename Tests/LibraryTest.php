@@ -1,9 +1,5 @@
 <?php
 
-require_once '../Book.php';
-require_once '../Novel.php';
-require_once '../Library.php';
-
 class LibraryTest extends PHPUnit_Framework_TestCase {
 
 	private $library;

@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . '/../Book.php';
-
 class BookTest extends PHPUnit_Framework_TestCase {
 
 	function testDifferentBooksCanHaveDifferentTitles() {

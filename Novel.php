@@ -18,7 +18,11 @@ class Novel extends Book {
 	}
 
 	public function getWeight() {
-		return $this->pageNumber() * $this->paperWeight;
+		return $this->numberOfPages() * $this->paperWeight;
+	}
+
+	function numberOfPages() {
+		return $this->allPages - self::COVERPAGES;
 	}
 
 }

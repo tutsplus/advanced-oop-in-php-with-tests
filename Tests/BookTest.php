@@ -32,7 +32,7 @@ class BookTest extends PHPUnit_Framework_TestCase {
 		$title = 'New Title';
 		$author = 'Someone Really Cool';
 
-		$book = new Book($title, $author);
+		$book = new Novel($title, $author);
 
 		$this->assertEquals($title, $book->getTitle());
 		$this->assertEquals($author, $book->getAuthor());
@@ -40,7 +40,7 @@ class BookTest extends PHPUnit_Framework_TestCase {
 	}
 
 	function createBook() {
-		return new Book();
+		return new Novel();
 	}
 
 }

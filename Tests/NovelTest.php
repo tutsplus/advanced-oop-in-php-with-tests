@@ -16,13 +16,10 @@ class NovelTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($author, $novel->getAuthor());
 	}
 
-	function testBehavior() {
+	function testItCanTellActualNumberOfPages() {
 		$novel = new Novel();
-
-		$novel->getWeight();
-
-
-
+		$novel->setAllPages(100);
+		$this->assertEquals(98, $novel->numberOfPages());
 	}
 
 }

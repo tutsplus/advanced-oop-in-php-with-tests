@@ -16,6 +16,7 @@ class LibraryTest extends PHPUnit_Framework_TestCase {
 
 	function testItCanHoldABook() {
 		$novel = new Novel();
+		$this->persistence->shouldReceive('save')->once()->withAnyArgs();
 		$this->library->add($novel);
 
 		$this->assertEquals(array($novel), $this->library->findAll());
@@ -24,7 +25,7 @@ class LibraryTest extends PHPUnit_Framework_TestCase {
 	function testItCanAddSeveralBooks() {
 		$novel = new Novel();
 		$anotherNovel = new Novel();
-
+		$this->persistence->shouldReceive('save')->twice()->withAnyArgs();
 		$this->library->add($novel);
 		$this->library->add($anotherNovel);
 
@@ -35,6 +36,7 @@ class LibraryTest extends PHPUnit_Framework_TestCase {
 		$title = 'Interstelar Warrior';
 		$novel = $this->aMockedNovelWithTitle($title);
 		$anotherNovel = $this->aMockedNovelWithTitle('Hommade Cookies');
+		$this->persistence->shouldReceive('save')->twice()->withAnyArgs();
 		$this->library->add($novel);
 		$this->library->add($anotherNovel);
 
@@ -45,6 +47,7 @@ class LibraryTest extends PHPUnit_Framework_TestCase {
 		$title = 'Interstelar Warrior';
 		$novel = $this->aMockedNovelWithTitle($title);
 		$anotherNovel = $this->aMockedNovelWithTitle('Hommade Cookies');
+		$this->persistence->shouldReceive('save')->twice()->withAnyArgs();
 		$this->library->add($novel);
 		$this->library->add($anotherNovel);
 
@@ -55,13 +58,12 @@ class LibraryTest extends PHPUnit_Framework_TestCase {
 
 	function testItCanSaveItselfWithAPersistenceGateway() {
 		$novel = new Novel('some title');
+		$this->persistence->shouldReceive('save')->once()->withAnyArgs();
 		$this->library->add($novel);
 
 		$this->persistence->shouldReceive('save')->once()->with($this->library->findAll(), Library::$persistencePath);
-
 		$this->library->save();
 	}
-
 
 	function testItCanLoadItselfWithAPersistenceGateway() {
 		$novel = new Novel('some title');

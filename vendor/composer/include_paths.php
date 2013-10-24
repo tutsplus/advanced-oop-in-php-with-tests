@@ -12,7 +12,11 @@ return array(
     $vendorDir . '/phpunit/php-token-stream',
     $vendorDir . '/phpunit/php-file-iterator',
     $vendorDir . '/phpunit/php-code-coverage',
+    $vendorDir . '/phpunit/phpunit-story',
+    $vendorDir . '/phpunit/php-invoker',
+    $vendorDir . '/phpunit/dbunit',
+    $vendorDir . '/symfony/yaml',
+    $vendorDir . '/phpunit/phpunit-selenium',
     $vendorDir . '/phpunit/phpunit',
     $vendorDir . '/symfony/yaml',
-    $vendorDir . '/phpunit/phpunit-story',
 );

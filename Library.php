@@ -12,6 +12,7 @@ class Library {
 
 	function add(Book $book) {
 		$this->books[] = $book;
+		$this->save();
 	}
 
 	function findAll() {

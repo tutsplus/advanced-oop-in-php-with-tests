@@ -22,6 +22,11 @@ class SerializedPersisterTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($books, $persister->loadFromFile(self::$persistencePath));
 	}
 
+	function testItWillNOTBreakWhenWeTryToLoadItFromAnInexitentFile() {
+		$persister = new SerializedPersister();
+		$this->assertEquals(array(), $persister->loadFromFile('inexitent/file/path'));
+	}
+
 }
 
 ?>

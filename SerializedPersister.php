@@ -3,6 +3,8 @@
 class SerializedPersister implements PersitenceGateway {
 
 	public function loadFromFile($filePath) {
+		if(!file_exists($filePath))
+			return [];
 		return unserialize(file_get_contents($filePath));
 	}
 

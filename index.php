@@ -2,14 +2,11 @@
 
 <?php
 	require_once './autoload.php';
-	$library = new Library();
-	$library->loadFromFile();
-
+	$libraryFacade = new LibraryFacade();
 	if(isset($_GET['Add']))
-		$library->add (new Novel ($_GET['title'], $_GET['author']));
+		$libraryFacade->addBook ($_GET['title'], $_GET['author']);
 
-	$library->save();
-	$allBooks = $library->findAll();
+	$allBooks = $libraryFacade->findAll();
 ?>
 
 <html>

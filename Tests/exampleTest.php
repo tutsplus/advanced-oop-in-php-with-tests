@@ -1,6 +1,6 @@
 <?php
 
-require_once '../example.php';
+require_once __DIR__ . '/../example.php';
 
 class exampleTest extends PHPUnit_Framework_TestCase {
 

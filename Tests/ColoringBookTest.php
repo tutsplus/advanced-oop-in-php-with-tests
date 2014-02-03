@@ -1,6 +1,7 @@
 <?php
+namespace Books;
 
-class ColoringBookTest extends PHPUnit_Framework_TestCase {
+class ColoringBookTest extends \PHPUnit_Framework_TestCase {
 
 	function testColoringBooks() {
 		$title = 'Rainbow';

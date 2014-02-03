@@ -1,4 +1,5 @@
 <?php
+namespace Books;
 
 abstract class Book {
 	const COVERPAGES = 2;

@@ -6,7 +6,7 @@ class SerializedPersisterTest extends PHPUnit_Framework_TestCase {
 	private static $persistencePath = '/tmp/persister.txt';
 
 	function testItCanPersistAnArray() {
-		$books = [new Novel('something else')];
+		$books = [new \Books\Novel('something else')];
 		$persister = new SerializedPersister();
 
 		$persister->save($books, self::$persistencePath);
@@ -15,7 +15,7 @@ class SerializedPersisterTest extends PHPUnit_Framework_TestCase {
 	}
 
 	function testItCanLoadAnArrayFromFile() {
-		$books = [new Novel('something else')];
+		$books = [new \Books\Novel('something else')];
 		$persister = new SerializedPersister();
 		$persister->save($books, self::$persistencePath);
 

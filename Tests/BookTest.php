@@ -1,6 +1,8 @@
 <?php
 
-class BookTest extends PHPUnit_Framework_TestCase {
+namespace Books;
+
+class BookTest extends \PHPUnit_Framework_TestCase {
 
 	function testDifferentBooksCanHaveDifferentTitles() {
 		$book1 = $this->createBook();

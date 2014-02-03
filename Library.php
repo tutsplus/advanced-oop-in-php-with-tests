@@ -10,7 +10,7 @@ class Library {
 		$this->persistence = $persistence ? : new SerializedPersister();
 	}
 
-	function add(Book $book) {
+	function add(\Books\Book $book) {
 		$this->books[] = $book;
 		$this->save();
 	}

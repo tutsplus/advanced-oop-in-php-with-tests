@@ -1,4 +1,5 @@
 <?php
+namespace Books;
 
 class ColoringBook extends Book {
 

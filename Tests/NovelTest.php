@@ -1,6 +1,7 @@
 <?php
+namespace Books;
 
-class NovelTest extends PHPUnit_Framework_TestCase {
+class NovelTest extends \PHPUnit_Framework_TestCase {
 
 	function testNovel() {
 		$title = 'The Lov of My Life';

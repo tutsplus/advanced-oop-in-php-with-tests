@@ -4,6 +4,12 @@ namespace Books;
 
 class BookTest extends \PHPUnit_Framework_TestCase {
 
+	private $bookFactory;
+
+	function setUp() {
+		$this->bookFactory = new BookFactory();
+	}
+
 	function testDifferentBooksCanHaveDifferentTitles() {
 		$book1 = $this->createBook();
 		$title1 = 'The Great Book of PHP';
@@ -29,18 +35,19 @@ class BookTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	function testWeCanCreateANewBookWithTheInformationWeWant() {
-		$title = 'New Title';
-		$author = 'Someone Really Cool';
-
-		$book = new Novel($title, $author);
-
-		$this->assertEquals($title, $book->getTitle());
-		$this->assertEquals($author, $book->getAuthor());
+		$book = $this->createBook();
+		$this->assertEquals('A title', $book->getTitle());
+		$this->assertEquals('An author', $book->getAuthor());
 
 	}
 
 	function createBook() {
-		return new Novel();
+		$requestModel = [
+			'bookType' => 'nv',
+			'title' => 'A title',
+			'author' => 'An author'
+		];
+		return $this->bookFactory->makeFromRequestModel($requestModel);
 	}
 
 }

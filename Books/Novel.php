@@ -5,6 +5,7 @@ class Novel extends Book {
 
 	public $category;
 	private $paperWeight = 5;
+	protected $type = 'Novel';
 
 	public function setCategory($category) {
 		$this->category = $category;

@@ -5,6 +5,7 @@ class ColoringBook extends Book {
 
 	private $recommendedAge = array();
 	private $introductionToParents;
+	protected $type = 'Coloring Book';
 
 	public function __construct($title = 'N/A') {
 		parent::__construct($title, 'Not Required');

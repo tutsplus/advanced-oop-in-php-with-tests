@@ -3,18 +3,20 @@
 class LibraryFacade {
 
 	private $library;
+	private $bookFactory;
 
 	public function __construct() {
 		$this->library = new Library();
 		$this->library->loadFromFile();
+		$this->bookFactory = new \Books\BookFactory();
 	}
 
 	function findAll() {
 		return $this->library->findAll();
 	}
 
-	function addBook($title, $author) {
-		$this->library->add(new Novel($title, $author));
+	function addBook($requestModel) {
+		$this->library->add($this->bookFactory->makeFromRequestModel($requestModel));
 		$this->library->save();
 	}
 

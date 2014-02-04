@@ -74,25 +74,6 @@ class LibraryTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals([$novel], $this->library->findAll());
 	}
 
-//
-//	function testItCanSaveItself() {
-//		$novel = new Novel('some title');
-//		$this->library->add($novel);
-//		$this->library->save();
-//
-//		$this->assertEquals($this->library->findAll(), unserialize(file_get_contents(Library::$persistencePath)));
-//	}
-//
-//	function testItCanLoadBooksFromFile() {
-//		$novel = new Novel('some title');
-//		$this->library->add($novel);
-//		$this->library->save();
-//
-//		$anotherLibrary = new Library();
-//		$anotherLibrary->loadFromFile();
-//
-//		$this->assertEquals($this->library->findAll(), $anotherLibrary->findAll());
-//	}
 	private function aMockedNovelWithTitle($title) {
 		$novel = $this->getMock('\Books\Novel');
 		$novel->expects($this->once())->method('getTitle')->will($this->returnValue($title));

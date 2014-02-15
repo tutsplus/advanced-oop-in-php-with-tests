@@ -2,43 +2,26 @@
 
 class Library {
 
-	private $books = array();
 	private $persistence;
-	public static $persistencePath = '/tmp/library.txt';
 
 	public function __construct(PersitenceGateway $persistence = null) {
-		$this->persistence = $persistence ? : new SerializedPersister();
+		$this->persistence = $persistence ? : new \Persistence\InMemory();
 	}
 
 	function add(\Books\Book $book) {
-		$this->books[] = $book;
-		$this->save();
+		$this->persistence->add($book);
 	}
 
 	function findAll() {
-		return $this->books;
+		return $this->persistence->select('*');
 	}
 
 	function findByTitle($title) {
-		return array_filter($this->books, function ($book) use ($title) {
-					return $book->getTitle() == $title;
-				});
+		return $this->persistence->select('title=' . $title);
 	}
 
 	function removeByTitle($title) {
-		$this->books = array_values(
-				array_filter($this->books, function ($book) use ($title) {
-							return $book->getTitle() != $title;
-						})
-		);
-	}
-
-	function save() {
-		$this->persistence->save($this->books, self::$persistencePath);
-	}
-
-	function loadFromFile() {
-		$this->books = $this->persistence->loadFromFile(self::$persistencePath);
+		$this->persistence->remove('title=' . $title);
 	}
 
 }

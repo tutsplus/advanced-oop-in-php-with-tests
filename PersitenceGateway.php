@@ -2,7 +2,11 @@
 
 interface PersitenceGateway {
 
-	function save(array $books, $filePath);
+	function add(\Books\Book $book);
+
+	function remove($pattern);
+
+	function select($pattern);
 
 	function loadFromFile($filePath);
 }

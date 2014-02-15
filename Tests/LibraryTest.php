@@ -6,7 +6,7 @@ class LibraryTest extends PHPUnit_Framework_TestCase {
 	private $persistence;
 
 	protected function setUp() {
-		$this->persistence = \Mockery::mock('PersitenceGateway');
+		$this->persistence = new \Persistence\InMemory();
 		$this->library = new Library($this->persistence);
 	}
 
@@ -16,69 +16,44 @@ class LibraryTest extends PHPUnit_Framework_TestCase {
 
 	function testItCanHoldABook() {
 		$novel = new \Books\Novel();
-		$this->persistence->shouldReceive('save')->once()->withAnyArgs();
 		$this->library->add($novel);
 
 		$this->assertEquals(array($novel), $this->library->findAll());
 	}
 
-	function testItCanAddSeveralBooks() {
+	function testItCanFindAllBooksFromPersistence() {
 		$novel = new \Books\Novel();
-		$anotherNovel = new \Books\Novel();
-		$this->persistence->shouldReceive('save')->twice()->withAnyArgs();
-		$this->library->add($novel);
-		$this->library->add($anotherNovel);
-
-		$this->assertEquals(array($novel, $anotherNovel), $this->library->findAll());
-	}
-
-	function testItCanFindABookByTitle() {
-		$title = 'Interstelar Warrior';
-		$novel = $this->aMockedNovelWithTitle($title);
-		$anotherNovel = $this->aMockedNovelWithTitle('Hommade Cookies');
-		$this->persistence->shouldReceive('save')->twice()->withAnyArgs();
-		$this->library->add($novel);
-		$this->library->add($anotherNovel);
-
-		$this->assertEquals(array($novel), $this->library->findByTitle($title));
-	}
-
-	function testItCanDeleteABookByTitle() {
-		$title = 'Interstelar Warrior';
-		$novel = $this->aMockedNovelWithTitle($title);
-		$anotherNovel = $this->aMockedNovelWithTitle('Hommade Cookies');
-		$this->persistence->shouldReceive('save')->twice()->withAnyArgs();
-		$this->library->add($novel);
-		$this->library->add($anotherNovel);
-
-		$this->library->removeByTitle($title);
-
-		$this->assertEquals(array($anotherNovel), $this->library->findAll());
-	}
-
-	function testItCanSaveItselfWithAPersistenceGateway() {
-		$novel = new \Books\Novel('some title');
-		$this->persistence->shouldReceive('save')->once()->withAnyArgs();
-		$this->library->add($novel);
-
-		$this->persistence->shouldReceive('save')->once()->with($this->library->findAll(), Library::$persistencePath);
-		$this->library->save();
-	}
-
-	function testItCanLoadItselfWithAPersistenceGateway() {
-		$novel = new \Books\Novel('some title');
-		$this->persistence->shouldReceive('loadFromFile')->once()->with(Library::$persistencePath)->andReturn(array($novel));
-
-		$this->library->loadFromFile();
+		$this->persistence->add($novel);
 
 		$this->assertEquals([$novel], $this->library->findAll());
 	}
 
-	private function aMockedNovelWithTitle($title) {
-		$novel = $this->getMock('\Books\Novel');
-		$novel->expects($this->once())->method('getTitle')->will($this->returnValue($title));
-		return $novel;
+	function testItCanAddSeveralBooks() {
+		list($novel, $anotherNovel) = $this->addTwoNovelsToTheLibrary('anything');
+		$this->assertEquals([$novel, $anotherNovel], $this->library->findAll());
 	}
+
+	function testItCanFindABookByTitle() {
+		$title = 'Interstelar Warrior';
+		list($novel, $anotherNovel) = $this->addTwoNovelsToTheLibrary($title);
+		$this->assertEquals([$novel], $this->library->findByTitle($title));
+	}
+
+	function testItCanDeleteABookByTitle() {
+		$title = 'Interstelar Warrior';
+		list($novel, $anotherNovel) = $this->addTwoNovelsToTheLibrary($title);
+		$this->library->removeByTitle($title);
+		$this->assertEquals([$anotherNovel], $this->library->findAll());
+	}
+
+	private function addTwoNovelsToTheLibrary($title) {
+		$novel = new \Books\Novel($title);
+		$anotherNovel = new \Books\Novel('Hommade Cookies');
+		$this->library->add($novel);
+		$this->library->add($anotherNovel);
+		return [$novel, $anotherNovel];
+	}
+
 
 }
 

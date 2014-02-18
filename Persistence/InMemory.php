@@ -25,10 +25,6 @@ class InMemory implements \PersitenceGateway {
 		return [];
 	}
 
-	function loadFromFile($filePath) {
-		// TODO: Implement loadFromFile() method.
-	}
-
 	private function findByTitle($title) {
 		return array_filter($this->inMemoryDatabase, function ($book) use ($title) {
 			return $book->getTitle() == $title;

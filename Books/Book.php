@@ -14,6 +14,13 @@ abstract class Book {
 		$this->author = $author;
 	}
 
+	function __toString() {
+		return "\nTitle=" . $this->title .
+			"\nAuthor=" . $this->author .
+			"\nAllPages=" . $this->allPages .
+			"\nType=" . $this->type;
+	}
+
 	public function getAllPages() {
 		return $this->allPages;
 	}

@@ -8,7 +8,6 @@ interface PersitenceGateway {
 
 	function select($pattern);
 
-	function loadFromFile($filePath);
 }
 
 ?>

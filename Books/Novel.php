@@ -7,6 +7,11 @@ class Novel extends Book {
 	private $paperWeight = 5;
 	protected $type = 'Novel';
 
+	function __toString() {
+		return parent::__toString() .
+			"\nCategory=" . $this->category;
+	}
+
 	public function setCategory($category) {
 		$this->category = $category;
 	}

@@ -20,6 +20,18 @@ class NovelTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals(98, $novel->numberOfPages());
 	}
 
+	function testItHasAStringRepresentation() {
+		$novel = new Novel('Star Trek', 'Gene Roddenberry');
+		$novel->setAllPages(15);
+		$novel->setCategory('scifi');
+
+		$this->assertRegExp('/Title=Star Trek/', $novel->__toString());
+		$this->assertRegExp('/AllPages=15/', $novel->__toString());
+		$this->assertRegExp('/Category=scifi/', $novel->__toString());
+
+
+	}
+
 }
 
 ?>

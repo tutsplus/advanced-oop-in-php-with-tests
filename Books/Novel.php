@@ -5,7 +5,7 @@ class Novel extends Book {
 
 	public $category;
 	private $paperWeight = 5;
-	protected $type = 'Novel';
+	protected $type = 'nv';
 
 	function __toString() {
 		return parent::__toString() .

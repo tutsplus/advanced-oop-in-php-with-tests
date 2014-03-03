@@ -17,4 +17,12 @@ class BookFactory {
 
 		return new $this->bookMap[$requestModel['bookType']]($requestModel['title'], $requestModel['author']);
 	}
+
+	function makeManyFromRequestModels($requestModels) {
+		$books = [];
+		foreach ($requestModels as $requestModel) {
+			$books[] = $this->makeFromRequestModel($requestModel);
+		}
+		return $books;
+	}
 }

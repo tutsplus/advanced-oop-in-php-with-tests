@@ -33,11 +33,16 @@ class FileSystemTest extends \PHPUnit_Framework_TestCase {
 		$p->add($novel);
 		$p->add(new \Books\Novel('T', 'A'));
 
-		$expectedNovel = $novel;
+		$expectedNovel = [
+			'title' => 'Star Trek',
+			'author' => 'Gene Roddenberry',
+			'bookType' => 'nv',
+			'allpages' => null,
+			'category' => null
+		];
 		$actualNovel = $p->select('Title=Star Trek');
 
 		$this->assertEquals($expectedNovel, $actualNovel);
-		$this->assertInstanceOf('\Books\Novel', $actualNovel);
 	}
 
 	private function createBook() {

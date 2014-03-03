@@ -26,7 +26,7 @@ class FileSystem implements \PersitenceGateway {
 		list($paramName, $title) = explode('=', $pattern);
 		$bookAsString = file_get_contents(self::$persistenceDir . self::$DS . $title);
 		$bookAsArray = $this->stringRepresentationToRequestModel($bookAsString);
-		return (new \Books\BookFactory())->makeFromRequestModel($bookAsArray);
+		return $bookAsArray;
 	}
 
 	private function stringRepresentationToRequestModel($bookAsString) {

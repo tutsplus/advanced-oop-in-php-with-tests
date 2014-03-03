@@ -8,7 +8,13 @@ class InMemory implements \PersitenceGateway {
 	private $inMemoryDatabase = [];
 
 	function add(\Books\Book $book) {
-		$this->inMemoryDatabase[] = $book;
+		$this->inMemoryDatabase[] = [
+			'title' => $book->getTitle(),
+			'author' => $book->getAuthor(),
+			'bookType' => $book->getType(),
+			'allpages' => $book->getAllPages(),
+			'category' => null
+		];
 	}
 
 	function remove($pattern) {
@@ -27,14 +33,14 @@ class InMemory implements \PersitenceGateway {
 
 	private function findByTitle($title) {
 		return array_filter($this->inMemoryDatabase, function ($book) use ($title) {
-			return $book->getTitle() == $title;
+			return $book['title'] == $title;
 		});
 	}
 
 	private function removeByTitle($title) {
 		$this->inMemoryDatabase = array_values(
 			array_filter($this->inMemoryDatabase, function ($book) use ($title) {
-				return $book->getTitle() != $title;
+				return $book['title'] != $title;
 			})
 		);
 	}

@@ -7,7 +7,6 @@ class LibraryFacade {
 
 	public function __construct() {
 		$this->library = new Library();
-		$this->library->loadFromFile();
 		$this->bookFactory = new \Books\BookFactory();
 	}
 
@@ -17,7 +16,6 @@ class LibraryFacade {
 
 	function addBook($requestModel) {
 		$this->library->add($this->bookFactory->makeFromRequestModel($requestModel));
-		$this->library->save();
 	}
 
 }

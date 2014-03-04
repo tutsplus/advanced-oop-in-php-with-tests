@@ -6,7 +6,7 @@ class Library {
 	private $bookFactory;
 
 	public function __construct(PersitenceGateway $persistence = null) {
-		$this->persistence = $persistence ? : new \Persistence\InMemory();
+		$this->persistence = $persistence ? : new \Persistence\FileSystem();
 		$this->bookFactory = new \Books\BookFactory();
 	}
 

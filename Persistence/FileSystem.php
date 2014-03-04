@@ -11,9 +11,7 @@ class FileSystem implements \PersitenceGateway {
 	static $DS = DIRECTORY_SEPARATOR;
 
 	function add(\Books\Book $book) {
-		if (!file_exists(self::$persistenceDir)) {
-			mkdir(self::$persistenceDir);
-		}
+		$this->ensurePersistenceDirectoryExists();
 
 		file_put_contents(self::$persistenceDir . self::$DS . $book->getTitle(), $book);
 	}
@@ -23,10 +21,23 @@ class FileSystem implements \PersitenceGateway {
 	}
 
 	function select($pattern) {
-		list($paramName, $title) = explode('=', $pattern);
-		$bookAsString = file_get_contents(self::$persistenceDir . self::$DS . $title);
-		$bookAsArray = $this->stringRepresentationToRequestModel($bookAsString);
-		return $bookAsArray;
+		if ($pattern == '*') {
+			$this->ensurePersistenceDirectoryExists();
+			$allBooks = [];
+			$directoryIterator = new \DirectoryIterator(self::$persistenceDir);
+			foreach ($directoryIterator as $fileInfo) {
+				if (!$fileInfo->isFile()) {
+					continue;
+				}
+				$allBooks[] = $this->select('title=' . $fileInfo->getFilename());
+			}
+			return $allBooks;
+		} else {
+			list($paramName, $title) = explode('=', $pattern);
+			$bookAsString = file_get_contents(self::$persistenceDir . self::$DS . $title);
+			$bookAsArray = $this->stringRepresentationToRequestModel($bookAsString);
+			return $bookAsArray;
+		}
 	}
 
 	private function stringRepresentationToRequestModel($bookAsString) {
@@ -52,5 +63,11 @@ class FileSystem implements \PersitenceGateway {
 			return [self::$propertyReqeustModelMap[$propertyValPair[0]], $propertyValPair[1]];
 		}
 		return [strtolower($propertyValPair[0]), $propertyValPair[1]];
+	}
+
+	private function ensurePersistenceDirectoryExists() {
+		if (!file_exists(self::$persistenceDir)) {
+			mkdir(self::$persistenceDir);
+		}
 	}
 }

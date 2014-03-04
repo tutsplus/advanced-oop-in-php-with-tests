@@ -45,6 +45,33 @@ class FileSystemTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($expectedNovel, $actualNovel);
 	}
 
+	function testItCanFindAllTheBooks() {
+		$p = new FileSystem();
+		$novel = $this->createBook();
+		$p->add($novel);
+		$p->add(new \Books\Novel('T', 'A'));
+
+		$expectedNovel = [
+			[
+				'title' => 'T',
+				'author' => 'A',
+				'bookType' => 'nv',
+				'allpages' => null,
+				'category' => null
+			],
+			[
+				'title' => 'Star Trek',
+				'author' => 'Gene Roddenberry',
+				'bookType' => 'nv',
+				'allpages' => null,
+				'category' => null
+			]
+		];
+		$actualNovel = $p->select('*');
+
+		$this->assertEquals($expectedNovel, $actualNovel);
+	}
+
 	private function createBook() {
 		return new \Books\Novel('Star Trek', 'Gene Roddenberry');
 	}

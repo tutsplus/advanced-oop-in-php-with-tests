@@ -22,22 +22,19 @@ class FileSystem implements \PersitenceGateway {
 
 	function select($pattern) {
 		if ($pattern == '*') {
-			$this->ensurePersistenceDirectoryExists();
-			$allBooks = [];
-			$directoryIterator = new \DirectoryIterator(self::$persistenceDir);
-			foreach ($directoryIterator as $fileInfo) {
-				if (!$fileInfo->isFile()) {
-					continue;
-				}
-				$allBooks[] = $this->select('title=' . $fileInfo->getFilename());
-			}
-			return $allBooks;
+			return $this->getAllBooks();
 		} else {
-			list($paramName, $title) = explode('=', $pattern);
-			$bookAsString = file_get_contents(self::$persistenceDir . self::$DS . $title);
-			$bookAsArray = $this->stringRepresentationToRequestModel($bookAsString);
-			return $bookAsArray;
+			list($paramName, $value) = explode('=', $pattern);
+			if (strtolower($paramName) == 'title') {
+				return $this->getBooksByTitle($value);
+			}
+			return $this->getBooksByAnyProperty($pattern);
 		}
+	}
+
+	private function getBookFromFile($filePath) {
+		$bookAsString = file_get_contents($filePath);
+		return $this->stringRepresentationToRequestModel($bookAsString);
 	}
 
 	private function stringRepresentationToRequestModel($bookAsString) {
@@ -69,5 +66,32 @@ class FileSystem implements \PersitenceGateway {
 		if (!file_exists(self::$persistenceDir)) {
 			mkdir(self::$persistenceDir);
 		}
+	}
+
+	private function getAllBooks() {
+		$this->ensurePersistenceDirectoryExists();
+		$allBooks = [];
+		$directoryIterator = new \DirectoryIterator(self::$persistenceDir);
+		foreach ($directoryIterator as $fileInfo) {
+			if (!$fileInfo->isFile()) {
+				continue;
+			}
+			$allBooks[] = $this->select('title=' . $fileInfo->getFilename());
+		}
+		return $allBooks;
+	}
+
+	private function getBooksByTitle($value) {
+		return $this->getBookFromFile(self::$persistenceDir . self::$DS . $value);
+	}
+
+	private function getBooksByAnyProperty($pattern) {
+		$foundBooks = [];
+		exec('grep -H -r "' . $pattern . '" ' . self::$persistenceDir, $output);
+		foreach ($output as $fileAndString) {
+			$fullFilename = explode(':', $fileAndString)[0];
+			$foundBooks[] = $this->getBookFromFile($fullFilename);
+		}
+		return $foundBooks;
 	}
 }

@@ -17,7 +17,13 @@ class FileSystem implements \PersitenceGateway {
 	}
 
 	function remove($pattern) {
-		// TODO: Implement remove() method.
+		$foundBooks = $this->select($pattern);
+		foreach($foundBooks as $book) {
+			$bookFile = self::$persistenceDir . self::$DS . $book['title'];
+			if(file_exists($bookFile)) {
+				unlink($bookFile);
+			}
+		}
 	}
 
 	function select($pattern) {
@@ -26,7 +32,7 @@ class FileSystem implements \PersitenceGateway {
 		} else {
 			list($paramName, $value) = explode('=', $pattern);
 			if (strtolower($paramName) == 'title') {
-				return $this->getBooksByTitle($value);
+				return [$this->getBooksByTitle($value)];
 			}
 			return $this->getBooksByAnyProperty($pattern);
 		}
@@ -76,7 +82,7 @@ class FileSystem implements \PersitenceGateway {
 			if (!$fileInfo->isFile()) {
 				continue;
 			}
-			$allBooks[] = $this->select('title=' . $fileInfo->getFilename());
+			$allBooks[] = $this->getBooksByTitle( $fileInfo->getFilename());
 		}
 		return $allBooks;
 	}

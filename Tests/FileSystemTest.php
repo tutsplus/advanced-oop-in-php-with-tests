@@ -42,7 +42,7 @@ class FileSystemTest extends \PHPUnit_Framework_TestCase {
 		];
 		$actualNovel = $p->select('Title=Star Trek');
 
-		$this->assertEquals($expectedNovel, $actualNovel);
+		$this->assertEquals([$expectedNovel], $actualNovel);
 	}
 
 	function testItCanFindAuthor() {
@@ -88,6 +88,24 @@ class FileSystemTest extends \PHPUnit_Framework_TestCase {
 		$actualNovel = $p->select('*');
 
 		$this->assertEquals($expectedNovel, $actualNovel);
+	}
+
+	function testItCanRemoveBooks() {
+		$p = new FileSystem();
+		$novel = $this->createBook();
+		$p->add($novel);
+		$p->add(new \Books\Novel('T', 'A'));
+
+		$p->remove('title=T');
+
+		$expectedBook = [
+			'title' => 'Star Trek',
+			'author' => 'Gene Roddenberry',
+			'bookType' => 'nv',
+			'allpages' => null,
+			'category' => null
+		];
+		$this->assertEquals([$expectedBook], $p->select('*'));
 	}
 
 	private function createBook() {

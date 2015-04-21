@@ -1,5 +1,5 @@
 # [Advanced OOP in PHP With Tests][published url]
-## Instructor: [Patkos Csaba][instructor url]
+## Instructor: [Patkós Csaba][instructor url]
 
 Welcome to the second part of [OOP in PHP With Tests](https://code.tutsplus.com/courses/oop-in-php-with-tests). In this course we will continue where we left off previously and we will start programming at a faster pace. We will consider architecture problems and use test-driven development to devise solutions for problems like object creation and persistence.
 

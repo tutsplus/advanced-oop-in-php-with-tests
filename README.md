@@ -15,5 +15,5 @@ These are source files for the Tuts+ course: [Advanced OOP in PHP With Tests][pu
 
 Available on [Tuts+](https://tutsplus.com). Teaching skills to millions worldwide.
 
-[published url]: https://code.tutsplus.com/courses
+[published url]: https://code.tutsplus.com/courses/advanced-oop-in-php-with-tests
 [instructor url]: https://tutsplus.com/authors/patkos-csaba
